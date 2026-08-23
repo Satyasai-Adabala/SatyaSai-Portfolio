@@ -378,25 +378,76 @@ section + section { border-top: 1px solid var(--border); }
 }
 .stat-box .label { font-size: 0.78rem; color: var(--text-muted); margin-top: 2px; }
 
-.hero-visual { padding: 0 20px 50px 40px; }
+
+/* Hero visual: floating stat/oscilloscope panel */
+.hero-visual {
+  position: relative;
+  height: 460px;
+  padding: 0 40px 50px 40px;
+}
+
+.hero-card {
+  position: absolute;
+  background: linear-gradient(160deg, var(--panel), var(--panel-2));
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  padding: 22px;
+  box-shadow: 0 30px 60px -20px rgba(0,0,0,0.6);
+  animation: float 7s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-14px);
+  }
+}
+
+.hero-card--main {
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  animation: none;
+}
+
 .hero-card--float-1 {
-  top: -40px; right: -10px;
+  top: 20px;
+  right: 0;
   width: 190px;
   animation-delay: -2s;
   font-family: var(--font-mono);
   font-size: 0.8rem;
   z-index: 2;
 }
+
 .hero-card--float-2 {
-  bottom: -55px; left: -20px;
+  bottom: 0;
+  left: 0;
   width: 190px;
   animation-delay: -4s;
   font-family: var(--font-mono);
   font-size: 0.78rem;
   z-index: 2;
 }
-.float-tag { display: flex; align-items: center; gap: 8px; color: var(--text-muted); }
-.float-tag .dot-live { width: 7px; height: 7px; border-radius: 50%; background: #4ade80; box-shadow: 0 0 8px #4ade80; }
+
+.float-tag {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-muted);
+}
+
+.float-tag .dot-live {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #4ade80;
+  box-shadow: 0 0 8px #4ade80;
+}
 
 /* ---------------------------- ABOUT ------------------------------------ */
 .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
@@ -646,18 +697,118 @@ footer .dot { color: var(--accent); }
 .detail-block ul li::before { content: "▸ "; color: var(--accent); }
 
 /* ---------------------------- RESPONSIVE --------------------------------- */
+
 @media (max-width: 960px) {
-  .hero-grid, .about-grid, .two-col, .contact-grid { grid-template-columns: 1fr; }
-  .hero-visual { height: 320px; margin-top: 20px; }
-  .nav-links { display: none; }
-  .hamburger { display: flex; }
-  section { padding: 70px 0; }
+  .hero-grid,
+  .about-grid,
+  .two-col,
+  .contact-grid {
+    grid-template-columns: minmax(0, 1fr);
+    width: 100%;
+    min-width: 0;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .hero-visual {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    height: 320px;
+    margin-top: 20px;
+    padding: 0 20px 50px 20px;
+  }
+
+  .hero-card {
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .hero-card--float-1 {
+    right: 0;
+  }
+
+  .hero-card--float-2 {
+    left: 0;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  section {
+    padding: 70px 0;
+  }
+
+  .contact-grid {
+    gap: 40px;
+  }
+
+  .form-panel {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .form-row {
+    min-width: 0;
+  }
+
+  .form-group {
+    min-width: 0;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
 }
+
 @media (max-width: 560px) {
-  .form-row { grid-template-columns: 1fr; }
-  .stat-cards { grid-template-columns: 1fr 1fr; }
-  .cta-panel { padding: 36px 22px; }
-  .hero-actions .btn { width: 100%; justify-content: center; }
+  .container {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .form-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .stat-cards {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .cta-panel {
+    padding: 36px 22px;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .form-panel {
+    padding: 24px 18px;
+  }
+
+  .contact-info-item {
+    min-width: 0;
+  }
+
+  .contact-info-item .value {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
 }
 
 /* mobile nav drawer */
