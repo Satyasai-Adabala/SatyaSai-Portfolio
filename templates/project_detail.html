@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block title %}{{ project.title }} — Adabala Satya Sai{% endblock %}
+{% block content %}
+<section class="detail-hero">
+  <div class="container">
+    <a href="{% url 'home' %}#projects" class="back-link">← Back to Projects</a>
+    <div class="eyebrow">{{ project.get_category_display }}</div>
+    <h1 class="section-title" style="max-width:700px;">{{ project.title }}</h1>
+    <p class="section-sub" style="margin-bottom:0;">{{ project.short_description }}</p>
+
+    <div class="detail-meta">
+      {% if project.metric_value %}
+      <div class="detail-meta-item"><div class="label">{{ project.metric_label }}</div><div class="value">{{ project.metric_value }}</div></div>
+      {% endif %}
+      <div class="detail-meta-item"><div class="label">Built</div><div class="value">{{ project.created_at|date:"M Y" }}</div></div>
+    </div>
+
+    <div class="project-links" style="margin-bottom:50px;">
+      {% if project.github_url %}<a href="{{ project.github_url }}" target="_blank" rel="noopener" class="btn btn-ghost">View on GitHub</a>{% endif %}
+      {% if project.live_url %}<a href="{{ project.live_url }}" target="_blank" rel="noopener" class="btn btn-primary">Live Demo</a>{% endif %}
+    </div>
+
+    {% if project.image %}
+    <div class="project-thumb" style="height:340px; border-radius: var(--radius-lg); margin-bottom:50px;" data-tag="{{ project.category|upper|slice:':2' }}">
+      <img src="{{ project.image.url }}" alt="{{ project.title }}">
+    </div>
+    {% endif %}
+
+    <div class="two-col">
+      <div>
+        {% if project.problem_statement %}
+        <div class="detail-block">
+          <h3>Problem Statement</h3>
+          <p>{{ project.problem_statement }}</p>
+        </div>
+        {% endif %}
+        {% if project.description %}
+        <div class="detail-block">
+          <h3>Overview</h3>
+          <p>{{ project.description }}</p>
+        </div>
+        {% endif %}
+        {% if project.challenges %}
+        <div class="detail-block">
+          <h3>Challenges</h3>
+          <p>{{ project.challenges }}</p>
+        </div>
+        {% endif %}
+        {% if project.solutions %}
+        <div class="detail-block">
+          <h3>Solutions</h3>
+          <p>{{ project.solutions }}</p>
+        </div>
+        {% endif %}
+      </div>
+      <div>
+        {% if project.feature_list %}
+        <div class="detail-block">
+          <h3>Key Features</h3>
+          <ul>{% for f in project.feature_list %}<li>{{ f }}</li>{% endfor %}</ul>
+        </div>
+        {% endif %}
+        <div class="detail-block">
+          <h3>Technologies</h3>
+          <div class="project-tech">{% for t in project.tech_list %}<span class="tech-pill">{{ t }}</span>{% endfor %}</div>
+        </div>
+      </div>
+    </div>
+
+    {% if related %}
+    <div class="detail-block" style="margin-top:30px;">
+      <h3>Related Projects</h3>
+      <div class="project-grid">
+        {% for p in related %}
+        <div class="project-card">
+          <div class="project-thumb" data-tag="{{ p.category|upper|slice:':2' }}"></div>
+          <div class="project-body">
+            <h3>{{ p.title }}</h3>
+            <p>{{ p.short_description }}</p>
+            <a href="{% url 'project_detail' p.slug %}" class="btn btn-primary btn-sm">View Details</a>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,306 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<!-- ============================== HERO ============================== -->
+<section class="hero" id="home">
+  <div class="container hero-grid">
+    <div class="reveal in">
+      <div class="hero-kicker">Available for<b>Software Engineer</b>&amp;<b>Data Analyst</b>roles</div>
+      <h1>
+        Hi, I'm {{ profile.full_name|slice:":5" }} —
+        <span class="accent-text" data-se="I build software." data-da="I read the data.">I build software.</span>
+      </h1>
+      <div class="terminal-line">
+        <span class="prompt">$</span>whoami →
+        <span data-typing></span><span class="cursor"></span>
+      </div>
+      <p class="lede" data-se="{{ profile.tagline_se }}" data-da="{{ profile.tagline_da }}">
+        {{ profile.tagline_se }}
+      </p>
+      <div class="hero-actions">
+        <a href="#projects" class="btn btn-primary">View My Projects</a>
+        <a href="{{ profile.resume_se.url }}" download
+           data-se-href="{{ profile.resume_se.url }}" data-da-href="{{ profile.resume_da.url }}"
+           class="btn btn-ghost" id="resume-download">Download Resume</a>
+        <a href="#contact" class="btn btn-ghost">Contact Me</a>
+      </div>
+      <div class="badge-row">
+        <span class="tech-badge">Python</span>
+        <span class="tech-badge">Django</span>
+        <span class="tech-badge">SQL</span>
+        <span class="tech-badge">Power BI</span>
+        <span class="tech-badge">Pandas</span>
+        <span class="tech-badge">Machine Learning</span>
+      </div>
+    </div>
+
+    <div class="hero-visual reveal in">
+      <div class="hero-card hero-card--main">
+        <div>
+          <div class="eyebrow">Live status</div>
+          <svg class="wave" viewBox="0 0 300 90" preserveAspectRatio="none">
+            <path d="M0,45 C20,10 40,80 60,45 C80,10 100,80 120,45 C140,10 160,80 180,45 C200,10 220,80 240,45 C260,10 280,80 300,45"
+                  fill="none" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="stat-grid">
+          <div class="stat-box"><div class="num">{{ profile.projects_completed }}</div><div class="label">Projects shipped</div></div>
+          <div class="stat-box"><div class="num">{{ profile.internships_count }}</div><div class="label">Internships</div></div>
+          <div class="stat-box"><div class="num">{{ profile.certifications_count }}</div><div class="label">Certifications</div></div>
+          <div class="stat-box"><div class="num">8.5</div><div class="label">CGPA</div></div>
+        </div>
+      </div>
+      <div class="hero-card hero-card--float-1">
+        <div class="float-tag"><span class="dot-live"></span>AgriGro — live on Render</div>
+      </div>
+      <div class="hero-card hero-card--float-2">
+        <div class="float-tag">89.1% accuracy — Attrition ML</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== ABOUT ============================== -->
+<section id="about">
+  <div class="container about-grid">
+    <div class="reveal">
+      <div class="eyebrow">About me</div>
+      <h2 class="section-title">Fresher on paper. Not in practice.</h2>
+      <div class="about-text">
+        <p>{{ profile.summary }}</p>
+        <p data-se="On the engineering side, I care about clean Django architecture, sensible database design, and shipping features that actually work in production — not just in a notebook."
+           data-da="On the analysis side, I care about asking the right question before opening a chart — cleaning data properly, checking assumptions, and turning numbers into a recommendation someone can act on.">
+          On the engineering side, I care about clean Django architecture, sensible database design, and shipping features that actually work in production — not just in a notebook.
+        </p>
+      </div>
+      <div class="philosophy-list">
+        <div class="philosophy-item"><span class="idx">01</span><p><strong>Build real things.</strong> Every project here is end-to-end and deployed or documented, not a copy-pasted tutorial.</p></div>
+        <div class="philosophy-item"><span class="idx">02</span><p><strong>Learn by shipping.</strong> I'd rather debug a live 405 error than read about one.</p></div>
+        <div class="philosophy-item"><span class="idx">03</span><p><strong>Numbers need a narrative.</strong> A dashboard without a recommendation is just decoration.</p></div>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="stat-cards">
+        <div class="stat-card"><div class="num">{{ profile.projects_completed }}</div><div class="label">Projects Completed</div></div>
+        <div class="stat-card"><div class="num">{{ profile.technologies_count }}+</div><div class="label">Technologies Learned</div></div>
+        <div class="stat-card"><div class="num">{{ profile.internships_count }}</div><div class="label">Internship Experience</div></div>
+        <div class="stat-card"><div class="num">{{ profile.certifications_count }}</div><div class="label">Certifications</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== SKILLS ============================== -->
+<section id="skills">
+  <div class="container">
+    <div class="eyebrow reveal">Skills</div>
+    <h2 class="section-title reveal">What I actually work with</h2>
+    <p class="section-sub reveal">No inflated percentages — this reflects real project experience, not a course completion badge.</p>
+    <div class="skills-grid">
+      {% for group in skill_groups %}
+      <div class="skill-card reveal" data-track="{{ group.track }}">
+        <h4>{{ group.name }}</h4>
+        {% for skill in group.skills.all %}
+        <div class="skill-row">
+          <div class="skill-row-top"><span>{{ skill.name }}</span><span>{{ skill.proficiency }}%</span></div>
+          <div class="skill-bar"><div class="skill-bar-fill" data-value="{{ skill.proficiency }}" style="width:{{ skill.proficiency }}%"></div></div>
+        </div>
+        {% endfor %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ============================== PROJECTS ============================== -->
+<section id="projects">
+  <div class="container">
+    <div class="eyebrow reveal">Projects</div>
+    <h2 class="section-title reveal">Things I've actually built and shipped</h2>
+    <p class="section-sub reveal">Five end-to-end projects — one live web app, two EDA deep-dives, one ML model, one BI dashboard.</p>
+
+    <div class="filter-row reveal">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="django">Django</button>
+      <button class="filter-btn" data-filter="ml">Machine Learning</button>
+      <button class="filter-btn" data-filter="data">Data Analysis</button>
+      <button class="filter-btn" data-filter="bi">Business Intelligence</button>
+    </div>
+
+    <div class="project-grid">
+      {% for project in projects %}
+      <div class="project-card reveal" data-category="{{ project.category }}" data-track="{{ project.track }}">
+        <div class="project-thumb" data-tag="{{ project.category|upper|slice:':2' }}">
+          {% if project.image %}<img src="{{ project.image.url }}" alt="{{ project.title }}">{% endif %}
+          {% if project.featured %}<span class="project-featured-tag">Featured</span>{% endif %}
+        </div>
+        <div class="project-body">
+          <h3>{{ project.title }}</h3>
+          <p>{{ project.short_description }}</p>
+          {% if project.metric_value %}<div class="project-metric">{{ project.metric_label }}: {{ project.metric_value }}</div>{% endif %}
+          <div class="project-tech">
+            {% for t in project.tech_list|slice:":4" %}<span class="tech-pill">{{ t }}</span>{% endfor %}
+          </div>
+          <div class="project-links">
+            {% if project.github_url %}<a href="{{ project.github_url }}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">GitHub</a>{% endif %}
+            {% if project.live_url %}<a href="{{ project.live_url }}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">Live Demo</a>{% endif %}
+            <a href="{% url 'project_detail' project.slug %}" class="btn btn-primary btn-sm">View Details</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ============================== EXPERIENCE ============================== -->
+<section id="experience">
+  <div class="container">
+    <div class="eyebrow reveal">Experience</div>
+    <h2 class="section-title reveal">Internships that taught me more than a semester did</h2>
+    <div class="timeline reveal">
+      {% for exp in experiences %}
+      <div class="timeline-item" data-track="{{ exp.track }}">
+        <div class="timeline-date">{{ exp.start_date }} — {{ exp.end_date }}</div>
+        <h4>{{ exp.role }}</h4>
+        <div class="org">{{ exp.organization }}</div>
+        <ul>{% for point in exp.responsibility_list %}<li>{{ point }}</li>{% endfor %}</ul>
+        {% if exp.tech_list %}
+        <div class="timeline-tech">{% for t in exp.tech_list %}<span class="tech-pill">{{ t }}</span>{% endfor %}</div>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ============================== EDUCATION ============================== -->
+<section id="education">
+  <div class="container">
+    <div class="eyebrow reveal">Education</div>
+    <h2 class="section-title reveal">Academic background</h2>
+    <div class="timeline reveal">
+      {% for edu in education %}
+      <div class="timeline-item">
+        <div class="timeline-date">{{ edu.start_year }} — {{ edu.end_year }}</div>
+        <h4>{{ edu.degree }}</h4>
+        <div class="org">{{ edu.institution }} · {{ edu.score_label }}: {{ edu.score_value }}</div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ============================== CERTIFICATIONS ============================== -->
+<section id="certifications">
+  <div class="container">
+    <div class="eyebrow reveal">Certifications</div>
+    <h2 class="section-title reveal">Credentials that backed the learning</h2>
+    <div class="cert-grid">
+      {% for cert in certifications %}
+      <div class="cert-card reveal">
+        <div class="cert-icon">{{ cert.organization|slice:":2"|upper }}</div>
+        <div>
+          <h4>{{ cert.name }}</h4>
+          <div class="org">{{ cert.organization }}</div>
+          {% if cert.date %}<div class="date">{{ cert.date }}</div>{% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ============================== GITHUB / CTA ============================== -->
+<section id="github">
+  <div class="container">
+    <div class="cta-panel reveal">
+      <h2>Looking for a motivated developer?</h2>
+      <p data-se="Let's build something meaningful together." data-da="Let's turn your data into decisions.">Let's build something meaningful together.</p>
+      <div class="cta-actions">
+        <a href="{{ profile.resume_se.url }}" download class="btn btn-primary" id="resume-download-2"
+           data-se-href="{{ profile.resume_se.url }}" data-da-href="{{ profile.resume_da.url }}">Download Resume</a>
+        <a href="{{ profile.github_url }}" target="_blank" rel="noopener" class="btn btn-ghost">View GitHub Profile</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== CONTACT ============================== -->
+<section id="contact">
+  <div class="container contact-grid">
+    <div class="reveal">
+      <div class="eyebrow">Contact</div>
+      <h2 class="section-title">Let's talk</h2>
+      <p class="section-sub">Reach out about a role, a project, or just to say the site looks clean.</p>
+
+      <div class="contact-info-item">
+        <div class="contact-info-icon">@</div>
+        <div><div class="label">Email</div><div class="value">{{ profile.email }}</div></div>
+      </div>
+      <div class="contact-info-item">
+        <div class="contact-info-icon">☎</div>
+        <div><div class="label">Phone</div><div class="value">{{ profile.phone }}</div></div>
+      </div>
+      <div class="contact-info-item">
+        <div class="contact-info-icon">📍</div>
+        <div><div class="label">Location</div><div class="value">{{ profile.location }}</div></div>
+      </div>
+
+      <div class="social-row">
+        <a href="{{ profile.github_url }}" target="_blank" rel="noopener" class="social-btn" aria-label="GitHub">GH</a>
+        <a href="{{ profile.linkedin_url }}" target="_blank" rel="noopener" class="social-btn" aria-label="LinkedIn">in</a>
+        <a href="mailto:{{ profile.email }}" class="social-btn" aria-label="Email">@</a>
+      </div>
+    </div>
+
+    <div class="form-panel reveal">
+      {% if messages %}
+        {% for message in messages %}<div class="alert-success">{{ message }}</div>{% endfor %}
+      {% endif %}
+      <form method="post" novalidate>
+        {% csrf_token %}
+        <div class="form-row">
+          <div class="form-group">
+            <label for="{{ form.name.id_for_label }}">Name</label>
+            {{ form.name }}
+            {{ form.name.errors }}
+          </div>
+          <div class="form-group">
+            <label for="{{ form.email.id_for_label }}">Email</label>
+            {{ form.email }}
+            {{ form.email.errors }}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="{{ form.subject.id_for_label }}">Subject</label>
+          {{ form.subject }}
+          {{ form.subject.errors }}
+        </div>
+        <div class="form-group">
+          <label for="{{ form.message.id_for_label }}">Message</label>
+          {{ form.message }}
+          {{ form.message.errors }}
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">Send Message</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const resumeLinks = [document.getElementById("resume-download"), document.getElementById("resume-download-2")];
+    document.querySelectorAll("[data-mode-btn]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const mode = btn.dataset.modeBtn;
+        resumeLinks.forEach((link) => {
+          if (!link) return;
+          link.href = mode === "se" ? link.dataset.seHref : link.dataset.daHref;
+        });
+      });
+    });
+  });
+</script>
+{% endblock %}

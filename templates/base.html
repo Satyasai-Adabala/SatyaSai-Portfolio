@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}Adabala Satya Sai — Software Engineer & Data Analyst{% endblock %}</title>
+<meta name="description" content="{% block description %}Portfolio of Adabala Satya Sai — fresher Software Engineer and Data Analyst. Django, Python, SQL, Power BI, Machine Learning projects.{% endblock %}">
+<meta property="og:title" content="Adabala Satya Sai — Portfolio">
+<meta property="og:description" content="Fresher Software Engineer & Data Analyst — Django, Python, SQL, Power BI, ML.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%230c0e13%22/><text x=%2250%22 y=%2266%22 font-size=%2255%22 text-anchor=%22middle%22 fill=%22%236c87ff%22 font-family=%22monospace%22>S</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body data-mode="se">
+
+<nav class="navbar">
+  <div class="container nav-inner">
+    <a href="#home" class="brand"><span class="dot"></span>sai.dev</a>
+
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#certifications">Certifications</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+
+    <div class="nav-right">
+      <div class="mode-switch">
+        <div class="thumb"></div>
+        <button data-mode-btn="se" class="active">SE</button>
+        <button data-mode-btn="da">DA</button>
+      </div>
+      <button class="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-nav">
+  <button class="close-btn" aria-label="Close menu">&times;</button>
+  <a href="#home">Home</a>
+  <a href="#about">About</a>
+  <a href="#skills">Skills</a>
+  <a href="#projects">Projects</a>
+  <a href="#experience">Experience</a>
+  <a href="#education">Education</a>
+  <a href="#certifications">Certifications</a>
+  <a href="#contact">Contact</a>
+</div>
+
+{% block content %}{% endblock %}
+
+<footer>
+  <p>Designed &amp; built by {{ profile.full_name }} <span class="dot">·</span> Django {% now "Y" %} <span class="dot">·</span> Deployed with care</p>
+</footer>
+
+<script src="{% static 'js/main.js' %}"></script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>
