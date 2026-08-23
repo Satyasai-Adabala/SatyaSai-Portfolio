@@ -414,9 +414,10 @@ section + section { border-top: 1px solid var(--border); }
   animation: none;
 }
 
+/* Top-right floating card */
 .hero-card--float-1 {
-  top: 20px;
-  right: 0;
+  top: -40px;
+  right: -10px;
   width: 190px;
   animation-delay: -2s;
   font-family: var(--font-mono);
@@ -424,9 +425,10 @@ section + section { border-top: 1px solid var(--border); }
   z-index: 2;
 }
 
+/* Bottom-left floating card */
 .hero-card--float-2 {
-  bottom: 0;
-  left: 0;
+  bottom: -55px;
+  left: -20px;
   width: 190px;
   animation-delay: -4s;
   font-family: var(--font-mono);
