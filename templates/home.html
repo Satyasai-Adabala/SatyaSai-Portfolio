@@ -219,9 +219,8 @@
       <h2>Looking for a motivated developer?</h2>
       <p data-se="Let's build something meaningful together." data-da="Let's turn your data into decisions.">Let's build something meaningful together.</p>
       <div class="cta-actions">
-      <a href="{{ profile.resume_se.url }}" download
-           data-se-href="{{ profile.resume_se.url }}" data-da-href="{{ profile.resume_da.url }}"
-           class="btn btn-ghost" id="resume-download">Download Resume</a>
+      <a href="{% static 'resumes/Adabala_Satya_Sai_SE_Resume.pdf' %}" download class="btn btn-primary" id="resume-download-2"
+           data-se-href="{% static 'resumes/Adabala_Satya_Sai_SE_Resume.pdf' %}" data-da-href="{% static 'resumes/Adabala_Satya_Sai_Data_Analyst_Resume.pdf' %}">Download Resume</a>
         <a href="{{ profile.github_url }}" target="_blank" rel="noopener" class="btn btn-ghost">View GitHub Profile</a>
       </div>
     </div>
