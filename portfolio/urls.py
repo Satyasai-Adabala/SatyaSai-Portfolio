@@ -8,7 +8,9 @@ urlpatterns = [
     path("", include("core.urls")),
 ]
 
-urlpatterns += static(
-    settings.MEDIA_URL,
-    document_root=settings.MEDIA_ROOT
-)
+# Media (resume PDFs, project images, certificates) always served directly —
+# small enough scale that we don't need S3/Cloudinary for this.
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.BASE_DIR / "static")
